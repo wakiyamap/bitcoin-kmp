@@ -96,14 +96,14 @@ class Bech32TestsCommon {
     @Test
     fun `decode addresses`() {
         val inputs = listOf(
-            "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4" to "0014751e76e8199196d454941c45d1b3a323f1433bd6",
-            "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7" to "00201863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262",
-            "bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kt5nd6y" to "5128751e76e8199196d454941c45d1b3a323f1433bd6751e76e8199196d454941c45d1b3a323f1433bd6",
-            "BC1SW50QGDZ25J" to "6002751e",
-            "bc1zw508d6qejxtdg4y5r3zarvaryvaxxpcs" to "5210751e76e8199196d454941c45d1b3a323",
-            "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy" to "0020000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433",
-            "tb1pqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesf3hn0c" to "5120000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433",
-            "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0" to "512079be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+            "MONA1Q4KPN6PSTHGD5UR894AUHJJ2G02WLGMP8KE08NE" to "0014ad833d060bba1b4e0ce5af797949487a9df46c27",
+            "tmona1qy0sllaedcsnlfyu2rewhnl2xu3sls8mw020367kdjgc9casfa72qlf55u2" to "002023e1fff72dc427f4938a1e5d79fd46e461f81f6e7a9f1d7acd92305c7609ef94",
+            "mona1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7ks6uhtp" to "5128751e76e8199196d454941c45d1b3a323f1433bd6751e76e8199196d454941c45d1b3a323f1433bd6",
+            "mona1sw50q5sr2p9" to "6002751e",
+            "mona1zw508d6qejxtdg4y5r3zarvaryvz8pq8u" to "5210751e76e8199196d454941c45d1b3a323",
+            "tmona1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvseszfvrwg" to "0020000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433",
+            "tmona1qdknsf580uq0h6pwz4mn4zw833m54umk4sydahff0d8t6u9yqrkcqtxw2z5" to "00206da704d0efe01f7d05c2aee75138f18ee95e6ed5811bdba52f69d7ae14801db0",
+            "mona1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqtsd8k8" to "512079be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
         )
         inputs.forEach {
             val (_, _, bin1) = Bech32.decodeWitnessAddress(it.first)
@@ -113,11 +113,11 @@ class Bech32TestsCommon {
 
     @Test
     fun `create addresses`() {
-        assertEquals(Bech32.encodeWitnessAddress("bc", 0, Hex.decode("751e76e8199196d454941c45d1b3a323f1433bd6")), "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4".lowercase())
-        assertEquals(Bech32.encodeWitnessAddress("bc", 1, Hex.decode("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798")), "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0")
-        assertEquals(Bech32.encodeWitnessAddress("tb", 0, Hex.decode("1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262")), "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7")
-        assertEquals(Bech32.encodeWitnessAddress("tb", 0, Hex.decode("000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433")), "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy")
-        assertEquals(Bech32.encodeWitnessAddress("tb", 1, Hex.decode("000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433")), "tb1pqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesf3hn0c")
+        assertEquals(Bech32.encodeWitnessAddress("mona", 0, Hex.decode("751e76e8199196d454941c45d1b3a323f1433bd6")), "MONA1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KG5LNX5".lowercase())
+        assertEquals(Bech32.encodeWitnessAddress("mona", 1, Hex.decode("79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798")), "mona1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqtsd8k8")
+        assertEquals(Bech32.encodeWitnessAddress("tmona", 0, Hex.decode("1863143c14c5166804bd19203356da136c985678cd4d27a1b8c6329604903262")), "tmona1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qwlyd0j")
+        assertEquals(Bech32.encodeWitnessAddress("tmona", 0, Hex.decode("000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433")), "tmona1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvseszfvrwg")
+        assertEquals(Bech32.encodeWitnessAddress("tmona", 1, Hex.decode("000000c4a5cad46221b2a187905e5266362b99d5e91c6ce24d165dab93e86433")), "tmona1pqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesg7v2k5")
     }
 
     @Test

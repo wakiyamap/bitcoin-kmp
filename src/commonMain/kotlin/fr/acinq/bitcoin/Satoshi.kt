@@ -40,7 +40,7 @@ public data class Satoshi(val sat: Long) : Comparable<Satoshi> {
 
     public companion object {
         public const val COIN: Long = 100_000_000L
-        public val MAX_MONEY: Satoshi = Satoshi(21_000_000L * COIN)
+        public val MAX_MONEY: Satoshi = Satoshi(105_120_000L * COIN)
     }
 }
 

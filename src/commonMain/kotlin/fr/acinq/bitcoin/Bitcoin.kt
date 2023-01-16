@@ -158,10 +158,10 @@ public object Bitcoin {
                         when {
                             witnessVersion == null -> error("invalid version ${it.second} in bech32 address")
                             it.third.size != 20 && it.third.size != 32 -> error("hash length in bech32 address must be either 20 or 32 bytes")
-                            it.first == "bc" && chainHash == Block.LivenetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
-                            it.first == "tb" && chainHash == Block.TestnetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
-                            it.first == "tb" && chainHash == Block.SignetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
-                            it.first == "bcrt" && chainHash == Block.RegtestGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
+                            it.first == "mona" && chainHash == Block.LivenetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
+                            it.first == "tmona" && chainHash == Block.TestnetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
+                            it.first == "tmona" && chainHash == Block.SignetGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
+                            it.first == "rmona" && chainHash == Block.RegtestGenesisBlock.hash -> listOf(witnessVersion, OP_PUSHDATA(it.third))
                             else -> error("bech32 address does not match our blockchain")
                         }
                     },

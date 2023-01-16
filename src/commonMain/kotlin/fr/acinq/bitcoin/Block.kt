@@ -324,20 +324,20 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
             val script = listOf(
                 OP_PUSHDATA(writeUInt32(486604799u)),
                 OP_PUSHDATA(ByteVector("04")),
-                OP_PUSHDATA("The Times 03/Jan/2009 Chancellor on brink of second bailout for banks".encodeToByteArray())
+                OP_PUSHDATA("Dec. 31th 2013 Japan, The winning numbers of the 2013 Year-End Jumbo Lottery:23-130916".encodeToByteArray())
             )
             val scriptPubKey = listOf(
-                OP_PUSHDATA(ByteVector("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f")),
+                OP_PUSHDATA(ByteVector("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9")),
                 OP_CHECKSIG
             )
             Block(
                 BlockHeader(
                     version = 1,
                     hashPreviousBlock = ByteVector32.Zeroes,
-                    hashMerkleRoot = ByteVector32("3ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a"),
-                    time = 1231006505,
-                    bits = 0x1d00ffff,
-                    nonce = 2083236893
+                    hashMerkleRoot = ByteVector32("a64bac07fe31877f31d03252953b3c32398933af7a724119bc4d6fa4a805e435"),
+                    time = 1388479472,
+                    bits = 0x1e0ffff0,
+                    nonce = 1234534
                 ),
                 listOf(
                     Transaction(
@@ -352,14 +352,14 @@ public data class Block(@JvmField val header: BlockHeader, @JvmField val tx: Lis
 
         @JvmField
         public val TestnetGenesisBlock: Block = LivenetGenesisBlock.copy(
-            header = LivenetGenesisBlock.header.copy(time = 1296688602, nonce = 414098458)
+            header = LivenetGenesisBlock.header.copy(time = 1488924140, nonce = 2122860)
         )
 
         @JvmField
         public val RegtestGenesisBlock: Block = LivenetGenesisBlock.copy(
             header = LivenetGenesisBlock.header.copy(
                 bits = 0x207fffffL,
-                nonce = 2,
+                nonce = 1,
                 time = 1296688602
             )
         )

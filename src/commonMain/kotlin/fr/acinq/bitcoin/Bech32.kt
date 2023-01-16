@@ -48,10 +48,10 @@ public object Bech32 {
 
     @JvmStatic
     public fun hrp(chainHash: ByteVector32): String = when (chainHash) {
-        Block.TestnetGenesisBlock.hash -> "tb"
-        Block.SignetGenesisBlock.hash -> "tb"
-        Block.RegtestGenesisBlock.hash -> "bcrt"
-        Block.LivenetGenesisBlock.hash -> "bc"
+        Block.TestnetGenesisBlock.hash -> "tmona"
+        Block.SignetGenesisBlock.hash -> "tmona"
+        Block.RegtestGenesisBlock.hash -> "rmona"
+        Block.LivenetGenesisBlock.hash -> "mona"
         else -> error("invalid chain hash $chainHash")
     }
 
@@ -209,7 +209,7 @@ public object Bech32 {
 
     /**
      * encode a bitcoin witness address
-     * @param hrp should be "bc" or "tb"
+     * @param hrp should be "mona" or "tmona"
      * @param witnessVersion witness version (0 to 16)
      * @param data witness program: if version is 0, either 20 bytes (P2WPKH) or 32 bytes (P2WSH)
      * @return a bech32 encoded witness address
@@ -238,7 +238,7 @@ public object Bech32 {
     @JvmStatic
     public fun decodeWitnessAddress(address: String): Triple<String, Byte, ByteArray> {
         val (hrp, data, encoding) = decode(address)
-        require(hrp == "bc" || hrp == "tb" || hrp == "bcrt") { "invalid HRP $hrp" }
+        require(hrp == "mona" || hrp == "tmona" || hrp == "rmona") { "invalid HRP $hrp" }
         val version = data[0]
         require(version in 0..16) { "invalid segwit version" }
         val bin = five2eight(data, 1)

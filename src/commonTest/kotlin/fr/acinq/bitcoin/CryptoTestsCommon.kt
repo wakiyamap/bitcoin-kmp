@@ -84,7 +84,7 @@ class CryptoTestsCommon {
         assertEquals(publicKey2.value, ByteVector("03D7E9DD0C618C65DC2E3972E2AA406CCD34E5E77895C96DC48AF0CB16A1D9B8CE"))
 
         val address = Base58Check.encode(Base58.Prefix.PubkeyAddress, Crypto.hash160(publicKey2.toUncompressedBin()))
-        assertEquals(address, "19FgFQGZy47NcGTJ4hfNdGMwS8EATqoa1X")
+        assertEquals(address, "MG9qUqAyU5HBVwRdHgKJsXyGuM7L4jLL5U")
     }
 
     @Test

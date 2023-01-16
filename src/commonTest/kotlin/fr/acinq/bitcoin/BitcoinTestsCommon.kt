@@ -44,14 +44,14 @@ class BitcoinTestsCommon {
         }
 
         listOf(
-            Triple("0014d0b19277b0f76c9512f26d77573fd31a8fd15fc7", Block.TestnetGenesisBlock.hash, "tb1q6zceyaas7akf2yhjd4m4w07nr28azh78gw79kk"),
-            Triple("00203287047df2aa7aade3f394790a9c9d6f9235943f48a012e8a9f2c3300ca4f2d1", Block.TestnetGenesisBlock.hash, "tb1qx2rsgl0j4fa2mclnj3us48yad7frt9plfzsp969f7tpnqr9y7tgsyprxej"),
+            Triple("0014d0b19277b0f76c9512f26d77573fd31a8fd15fc7", Block.TestnetGenesisBlock.hash, "tmona1q6zceyaas7akf2yhjd4m4w07nr28azh787qpt27"),
+            Triple("00203287047df2aa7aade3f394790a9c9d6f9235943f48a012e8a9f2c3300ca4f2d1", Block.TestnetGenesisBlock.hash, "tmona1qx2rsgl0j4fa2mclnj3us48yad7frt9plfzsp969f7tpnqr9y7tgs9wclq7"),
             Triple("76a914b17deefe2feab87fef7221cf806bb8ca61f00fa188ac", Block.TestnetGenesisBlock.hash, "mwhSm2SHhRhd19KZyaQLgJyAtCLnkbzWbf"),
             Triple("a914d3cf9d04f4ecc36df8207b300e46bc6775fc84c087", Block.TestnetGenesisBlock.hash, "2NCZBGzKadAnLv1ijAqhrKavMuqvxqu18yY"),
-            Triple("00145cb882efd643b7d63ae133e4d5e88e10bd5a20d7", Block.LivenetGenesisBlock.hash, "bc1qtjug9m7kgwmavwhpx0jdt6ywzz745gxhxwyn8u"),
-            Triple("00208c2865c87ffd33fc5d698c7df9cf2d0fb39d93103c637a06dea32c848ebc3e1d", Block.LivenetGenesisBlock.hash, "bc1q3s5xtjrll5elchtf337lnnedp7eemycs833h5pk75vkgfr4u8cws3ytg02"),
-            Triple("76a914536ffa992491508dca0354e52f32a3a7a679a53a88ac", Block.LivenetGenesisBlock.hash, "18cBEMRxXHqzWWCxZNtU91F5sbUNKhL5PX"),
-            Triple("a91481b9ac6a59b53927da7277b5ad5460d781b365d987", Block.LivenetGenesisBlock.hash, "3DWwX7NYjnav66qygrm4mBCpiByjammaWy"),
+            Triple("00145cb882efd643b7d63ae133e4d5e88e10bd5a20d7", Block.LivenetGenesisBlock.hash, "mona1qtjug9m7kgwmavwhpx0jdt6ywzz745gxhzaj32a"),
+            Triple("00208c2865c87ffd33fc5d698c7df9cf2d0fb39d93103c637a06dea32c848ebc3e1d", Block.LivenetGenesisBlock.hash, "mona1q3s5xtjrll5elchtf337lnnedp7eemycs833h5pk75vkgfr4u8cwsczjatz"),
+            Triple("76a914536ffa992491508dca0354e52f32a3a7a679a53a88ac", Block.LivenetGenesisBlock.hash, "MFWLTnLN2K1oQBBHnMYQPGrRLpMXu28ama"),
+            Triple("a91481b9ac6a59b53927da7277b5ad5460d781b365d987", Block.LivenetGenesisBlock.hash, "PLR6kYGxEokiympJuqR11SpABQruDP7Wv6"),
         ).forEach {
             assertEquals(addressFromPublicKeyScript(it.second, Hex.decode(it.first)), it.third)
         }
@@ -95,29 +95,29 @@ class BitcoinTestsCommon {
         val pub = PrivateKey.fromHex("0101010101010101010101010101010101010101010101010101010101010101").publicKey()
 
         // p2wpkh
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("bc", 0, pub.hash160())), Script.pay2wpkh(pub))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("tb", 0, pub.hash160())), Script.pay2wpkh(pub))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("tb", 0, pub.hash160())), Script.pay2wpkh(pub))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, Bech32.encodeWitnessAddress("bcrt", 0, pub.hash160())), Script.pay2wpkh(pub))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("mona", 0, pub.hash160())), Script.pay2wpkh(pub))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("tmona", 0, pub.hash160())), Script.pay2wpkh(pub))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("tmona", 0, pub.hash160())), Script.pay2wpkh(pub))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, Bech32.encodeWitnessAddress("rmona", 0, pub.hash160())), Script.pay2wpkh(pub))
 
         // wrong chain
-        assertFails { Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("bc", 0, pub.hash160())) }
-        assertFails { Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("bc", 0, pub.hash160())) }
-        assertFails { Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("tb", 0, pub.hash160())) }
-        assertFails { Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("bcrt", 0, pub.hash160())) }
+        assertFails { Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("mona", 0, pub.hash160())) }
+        assertFails { Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("mona", 0, pub.hash160())) }
+        assertFails { Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("tmona", 0, pub.hash160())) }
+        assertFails { Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("rmona", 0, pub.hash160())) }
 
         val script = Script.write(Script.pay2wpkh(pub))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("bc", 0, Crypto.sha256(script))), Script.pay2wsh(script))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("tb", 0, Crypto.sha256(script))), Script.pay2wsh(script))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("tb", 0, Crypto.sha256(script))), Script.pay2wsh(script))
-        assertEquals(Bitcoin.addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, Bech32.encodeWitnessAddress("bcrt", 0, Crypto.sha256(script))), Script.pay2wsh(script))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.LivenetGenesisBlock.hash, Bech32.encodeWitnessAddress("mona", 0, Crypto.sha256(script))), Script.pay2wsh(script))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, Bech32.encodeWitnessAddress("tmona", 0, Crypto.sha256(script))), Script.pay2wsh(script))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.SignetGenesisBlock.hash, Bech32.encodeWitnessAddress("tmona", 0, Crypto.sha256(script))), Script.pay2wsh(script))
+        assertEquals(Bitcoin.addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, Bech32.encodeWitnessAddress("rmona", 0, Crypto.sha256(script))), Script.pay2wsh(script))
     }
 
     @Test
     fun `check genesis block hashes`() {
-        assertEquals(Block.RegtestGenesisBlock.blockId, ByteVector32.fromValidHex("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"))
-        assertEquals(Block.SignetGenesisBlock.blockId, ByteVector32.fromValidHex("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"))
-        assertEquals(Block.TestnetGenesisBlock.blockId, ByteVector32.fromValidHex("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"))
-        assertEquals(Block.LivenetGenesisBlock.blockId, ByteVector32.fromValidHex("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"))
+        assertEquals(Block.RegtestGenesisBlock.blockId, ByteVector32.fromValidHex("0x7543a69d7c2fcdb29a5ebec2fc064c074a35253b6f3072c8a749473aa590a29c"))
+        assertEquals(Block.SignetGenesisBlock.blockId, ByteVector32.fromValidHex("0xc1c56ac4fbd534d2b7005e9e15e6c899a859146354075be841581bf312204e42"))
+        assertEquals(Block.TestnetGenesisBlock.blockId, ByteVector32.fromValidHex("0xa2b106ceba3be0c6d097b2a6a6aacf9d638ba8258ae478158f449c321061e0b2"))
+        assertEquals(Block.LivenetGenesisBlock.blockId, ByteVector32.fromValidHex("0xff9f1c0116d19de7c9963845e129f9ed1bfc0b376eb54fd7afa42e0d418c8bb6"))
     }
 }

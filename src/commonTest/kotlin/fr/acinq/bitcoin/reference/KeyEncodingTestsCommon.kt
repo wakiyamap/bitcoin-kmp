@@ -49,7 +49,7 @@ class KeyEncodingTestsCommon {
                 }
             } else {
                 when (encoded.first()) {
-                    '1', 'm', 'n' -> {
+                    'M', 'm', 'n' -> {
                         val (version, data) = Base58Check.decode(encoded)
                         assertTrue(version == Base58.Prefix.PubkeyAddress || version == Base58.Prefix.PubkeyAddressTestnet)
                         assertEquals(
@@ -62,7 +62,7 @@ class KeyEncodingTestsCommon {
                             )
                         )
                     }
-                    '2', '3' -> {
+                    '2', 'P' -> {
                         val (version, data) = Base58Check.decode(encoded)
                         assertTrue(version == Base58.Prefix.ScriptAddress || version == Base58.Prefix.ScriptAddressTestnet)
                         assertEquals(Script.parse(hex), listOf(OP_HASH160, OP_PUSHDATA(data), OP_EQUAL))
@@ -78,9 +78,9 @@ class KeyEncodingTestsCommon {
                             }.joinToString("")
                         }
                         val prefix = when (chain) {
-                            "main" -> "bc"
-                            "test", "signet" -> "tb"
-                            "regtest" -> "bcrt"
+                            "main" -> "mona"
+                            "test", "signet" -> "tmona"
+                            "regtest" -> "rmona"
                             else -> throw IllegalArgumentException("invalid chain $chain")
                         }
                         require(encoded.startsWith(prefix, ignoreCase = true))
@@ -122,7 +122,7 @@ class KeyEncodingTestsCommon {
         return try {
             val (hrp, flag, bin) = Bech32.decodeWitnessAddress(value)
             when {
-                flag == 0.toByte() && (hrp == "bc" || hrp == "tb" || hrp == "bcrt") && (bin.size == 20 || bin.size == 32) -> true
+                flag == 0.toByte() && (hrp == "mona" || hrp == "tmona" || hrp == "rmona") && (bin.size == 20 || bin.size == 32) -> true
                 else -> false
             }
         } catch (e: Exception) {

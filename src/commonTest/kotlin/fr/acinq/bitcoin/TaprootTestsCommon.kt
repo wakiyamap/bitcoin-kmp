@@ -84,7 +84,7 @@ class TaprootTestsCommon {
         assertEquals(Script.pay2tr(outputKey), Script.parse(tx.txOut[1].publicKeyScript))
 
         // we want to spend
-        val outputScript = addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, "tb1pn3g330w4n5eut7d4vxq0pp303267qc6vg8d2e0ctjuqre06gs3yqnc5yx0")
+        val outputScript = addressToPublicKeyScript(Block.TestnetGenesisBlock.hash, "tmona1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qwlyd0j")
         val tx1 = Transaction(
             2,
             listOf(TxIn(OutPoint(tx, 1), TxIn.SEQUENCE_FINAL)),
@@ -188,7 +188,7 @@ class TaprootTestsCommon {
         val tmp = Transaction(
             version = 2,
             txIn = listOf(TxIn(OutPoint(fundingTx, 0), TxIn.SEQUENCE_FINAL)),
-            txOut = listOf(TxOut(fundingTx.txOut[0].amount - Satoshi(5000), addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, "bcrt1qdtu5cwyngza8hw8s5uk2erlrkh8ceh3msp768v"))),
+            txOut = listOf(TxOut(fundingTx.txOut[0].amount - Satoshi(5000), addressToPublicKeyScript(Block.RegtestGenesisBlock.hash, "rmona1qlk3cgj0aalee5djg8nf8tj7ryputvv7x4gvj5w"))),
             lockTime = 0
         )
         val hash = hashForSigningSchnorr(tmp, 0, listOf(fundingTx.txOut[0]), SigHash.SIGHASH_DEFAULT, SigVersion.SIGVERSION_TAPSCRIPT, Script.ExecutionData(annex = null, tapleafHash = merkleRoot))
@@ -246,8 +246,8 @@ class TaprootTestsCommon {
         // this is the tapscript we send funds to
         val script = Script.write(listOf(OP_1, OP_PUSHDATA(tweakedKey.value))).byteVector()
         val bip350Address = Bech32.encodeWitnessAddress(hrp(blockchain), 1.toByte(), tweakedKey.value.toByteArray())
-        assertEquals(bip350Address, "tb1p78gx95syx0qz8w5nftk8t7nce78zlpqpsxugcvq5xpfy4tvn6rasd7wk0y")
-        val sweepPublicKeyScript = addressToPublicKeyScript(blockchain, "tb1qxy9hhxkw7gt76qrm4yzw4j06gkk4evryh8ayp7")
+        assertEquals(bip350Address, "tmona1p78gx95syx0qz8w5nftk8t7nce78zlpqpsxugcvq5xpfy4tvn6rasv340kg")
+        val sweepPublicKeyScript = addressToPublicKeyScript(blockchain, "tmona1pufpxa6zyvkdrz52qhtt9r5hl7pts7r3a5anndeupt0yqys8s8s6qm43u7j")
 
         // see https://mempool.space/signet/tx/c284010f06b5182e9f4722ce3474980339b1fc76e5ff29ece812f5d2162595c1
         val fundingTx = Transaction.read("020000000001017034061243a7770f791aa2afdb118be900f4f8fc755a36d8632213acc139bab20100000000feffffff0200e1f50500000000225120f1d062d20433c023ba934aec75fa78cf8e2f840181b88c301430524aad93d0fbc192ac1700000000160014b66f2e807b9f4adecb99ad811dde501ca3f0fd5f02473044022046a2fd077e12b1d7ba74f6e7ac469deb3e3755c100216abad667980fc39463dc022018b63cfaf72fde0b5ca10c617aeaa0015013bd06ef08f82eea500c6467d963cc0121030b50ec81d958ae79d34d3579faf72456213d7d581a908e2b64d21b96777882043ab10100")
@@ -271,7 +271,7 @@ class TaprootTestsCommon {
         }
 
         // see: https://mempool.space/signet/tx/de3e4dcf07e68c7b237269eee75b926b9d147869f6317031b0550dcbf509ff5b
-        assertEquals(tx.toString(), "02000000000101c1952516d2f512e8ec29ffe576fcb13903987434ce22479f2e18b5060f0184c20000000000ffffffff0178cdf50500000000160014310b7b9acef217ed007ba904eac9fa45ad5cb064014004174022193d585759ce094bbe47ff23eef0238aaa89a89a0d04c80fa321c9b9056623282c49cfa7388409af5ef9a1ab7e3733b72637edcfb15019018d4d7f5a00000000")
+        assertEquals(tx.toString(), "02000000000101c1952516d2f512e8ec29ffe576fcb13903987434ce22479f2e18b5060f0184c20000000000ffffffff0178cdf50500000000225120e2426ee844659a315140bad651d2fff0570f0e3da76736e7815bc80240f03c3401407a0a4ce15a870f5f79c4bd5045be1b48c8661c5588229da769621c4a1c6ba1dbcc38d996dffd342ad96ccaca47d3d554ee18431551cc035c4f62cc0bd93865f100000000")
         Transaction.correctlySpends(tx, fundingTx, ScriptFlags.STANDARD_SCRIPT_VERIFY_FLAGS)
 
         // see https://mempool.space/signet/tx/193962bdc619a1c6f28e3989603a229055b544ee9e12c5ca8cc0a694babd8506
@@ -297,7 +297,7 @@ class TaprootTestsCommon {
         }
 
         // see: https://mempool.space/signet/tx/5586515f9ed7fce8b7e8be97a8681c298a94166ff95e15edd94226edec50d9ea
-        assertEquals(tx1.toString(), "020000000001010685bdba94a6c08ccac5129eee44b55590223a6089398ef2c6a119c6bd6239190000000000ffffffff0178cdf50500000000160014310b7b9acef217ed007ba904eac9fa45ad5cb0640340c6aaa48614bfa03b8cb3c56c84df6214ca223d11b63a7d2dbd67ad4dbb13ccc5ee26890e68b655dfa371fefe8e0117eee854fc3538cbe453ebe6c9ae9d12111022201b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fac61c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f4b756b9676af737379eb8b2767da3e68df7b59757b9f67cb0d21bb5a63ccc1a8a7b49fc07e0495843b92705136c98e1e64d19bf40303f0c2e32d9c58413b770200000000")
+        assertEquals(tx1.toString(), "020000000001010685bdba94a6c08ccac5129eee44b55590223a6089398ef2c6a119c6bd6239190000000000ffffffff0178cdf50500000000225120e2426ee844659a315140bad651d2fff0570f0e3da76736e7815bc80240f03c34034063c31442bde874cf22a5f9327d6283c63eb9b36bd79151a1cb645a5614018669fb29e957776338a2b1e6b2d60a9e3b621ce1f8cfd99593858edfeb2019fe895022201b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fac61c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f4b756b9676af737379eb8b2767da3e68df7b59757b9f67cb0d21bb5a63ccc1a8a7b49fc07e0495843b92705136c98e1e64d19bf40303f0c2e32d9c58413b770200000000")
         Transaction.correctlySpends(tx1, fundingTx1, ScriptFlags.STANDARD_SCRIPT_VERIFY_FLAGS)
 
         // see https://mempool.space/signet/tx/b4dfa342b434709e1b4fd46a2caf7661a195267445ba4402bb2364b174edc5a6
@@ -324,7 +324,7 @@ class TaprootTestsCommon {
         }
 
         // see: https://mempool.space/signet/tx/5586515f9ed7fce8b7e8be97a8681c298a94166ff95e15edd94226edec50d9ea
-        assertEquals(tx2.toString(), "02000000000101a6c5ed74b16423bb0244ba45742695a16176af2c6ad44f1b9e7034b442a3dfb40000000000ffffffff0178cdf50500000000160014310b7b9acef217ed007ba904eac9fa45ad5cb06403409ded7b5094a959650a725f4c1d87f5ba17904a14085ad5ec65c4b2ebb817c8e9193a31091ad3c9ac393bc394dd2a85f2456908cc2209760540e5094b32ccec392220c050c3f0b8d45b9e093a91cb96d097b24100e66585d0d8561e01c1231837493fac61c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fb3377ed08656d10020a2669defa10b1493771fbd61be8e3dbe2d8232a6b9805ca7b49fc07e0495843b92705136c98e1e64d19bf40303f0c2e32d9c58413b770200000000")
+        assertEquals(tx2.toString(), "02000000000101a6c5ed74b16423bb0244ba45742695a16176af2c6ad44f1b9e7034b442a3dfb40000000000ffffffff0178cdf50500000000225120e2426ee844659a315140bad651d2fff0570f0e3da76736e7815bc80240f03c340340b238308c3709e56227920fad6d4d44c6da2c7a17bbf51c995e9df7e29fcae9cf42d6f6d113f256eeea6de369a7a19f4e6b85542981a369c290eb2c4036c312ae2220c050c3f0b8d45b9e093a91cb96d097b24100e66585d0d8561e01c1231837493fac61c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fb3377ed08656d10020a2669defa10b1493771fbd61be8e3dbe2d8232a6b9805ca7b49fc07e0495843b92705136c98e1e64d19bf40303f0c2e32d9c58413b770200000000")
         Transaction.correctlySpends(tx2, fundingTx2, ScriptFlags.STANDARD_SCRIPT_VERIFY_FLAGS)
 
         // see https://mempool.space/signet/tx/97196e1dc3ee089955d2a738143a66a34166d0c7f0a85d8ad4ba2c972dc0555c
@@ -336,7 +336,7 @@ class TaprootTestsCommon {
             val tmp = Transaction(
                 version = 2,
                 txIn = listOf(TxIn(OutPoint(fundingTx3, 1), TxIn.SEQUENCE_FINAL)),
-                txOut = listOf(TxOut(fundingTx3.txOut[0].amount - Satoshi(5000), addressToPublicKeyScript(blockchain, "tb1qxy9hhxkw7gt76qrm4yzw4j06gkk4evryh8ayp7"))),
+                txOut = listOf(TxOut(fundingTx3.txOut[0].amount - Satoshi(5000), addressToPublicKeyScript(blockchain, "tmona1pufpxa6zyvkdrz52qhtt9r5hl7pts7r3a5anndeupt0yqys8s8s6qm43u7j"))),
                 lockTime = 0
             )
             // to re-compute the merkle root we need to provide branch(#1, #2)
@@ -349,7 +349,7 @@ class TaprootTestsCommon {
         }
 
         // see: https://mempool.space/signet/tx/2eb421e044de0535aa3d14a5a4c325ba8b5181440bbd911b5b43718b686b09a8
-        assertEquals(tx3.toString(), "020000000001015c55c02d972cbad48a5da8f0c7d06641a3663a1438a7d2559908eec31d6e19970100000000ffffffff018ca5f50500000000160014310b7b9acef217ed007ba904eac9fa45ad5cb0640340c10da2636457db468385345303e984ee949d0815745f5dcba67cde603ef02738b6f26f6c44beef0a93d9fcbb82571d215ca2cf04a1894ce01d2eaf7b6068260a2220a4fbd2c1822592c0ae8afa0e63a0d4c56a571179e93fd61615627f419fd0be9aac41c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f35b9c8be6dc0c33d6ce3cc9d3ba04c509b3f5b0139254f67d3184a5a238901f400000000")
+        assertEquals(tx3.toString(), "020000000001015c55c02d972cbad48a5da8f0c7d06641a3663a1438a7d2559908eec31d6e19970100000000ffffffff018ca5f50500000000225120e2426ee844659a315140bad651d2fff0570f0e3da76736e7815bc80240f03c34034004827a67e30211e89f7393c47040522b76e18287971117e86fa0bfc48c2fef72ccfee10611e67ee0c8c111516eb78a4fe2545e5bdfde187ddf2cf19282f6fefa2220a4fbd2c1822592c0ae8afa0e63a0d4c56a571179e93fd61615627f419fd0be9aac41c01b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078f35b9c8be6dc0c33d6ce3cc9d3ba04c509b3f5b0139254f67d3184a5a238901f400000000")
         Transaction.correctlySpends(tx3, fundingTx3, ScriptFlags.STANDARD_SCRIPT_VERIFY_FLAGS)
     }
 

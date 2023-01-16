@@ -21,9 +21,9 @@ import kotlin.jvm.JvmStatic
 
 public object Base58 {
     public object Prefix {
-        public const val PubkeyAddress: Byte = 0.toByte()
-        public const val ScriptAddress: Byte = 5.toByte()
-        public const val SecretKey: Byte = 128.toByte()
+        public const val PubkeyAddress: Byte = 50.toByte()
+        public const val ScriptAddress: Byte = 55.toByte()
+        public const val SecretKey: Byte = 176.toByte() // was 178 on 0.10.x
         public const val PubkeyAddressTestnet: Byte = 111.toByte()
         public const val ScriptAddressTestnet: Byte = 196.toByte()
         public const val SecretKeyTestnet: Byte = 239.toByte()

@@ -50,11 +50,11 @@ class DeriveWalletKeysTestsCommon {
         assertEquals(
             deriveAddresses(xpub, DerivationScheme.BIP84),
             listOf(
-                "tb1ql63el50rtln6n4kxa76jrhuts3kxmk9wtz6hp0",
-                "tb1qa2hyhca4y07xqcl9r9m63rtv4hgdh063hldn6r",
-                "tb1q0lywyl3cdkuw29yuh6w0frqh4hnxdj0m4e78eq",
-                "tb1q4dg72vn06mrjh3yyzpkws3w2z0whrys8g2a997",
-                "tb1qx4g3glhflr42clkkla9ty0vmfcmme9a426mrc2"
+                "tmona1ql63el50rtln6n4kxa76jrhuts3kxmk9wav9ea8",
+                "tmona1qa2hyhca4y07xqcl9r9m63rtv4hgdh063p3jaxt",
+                "tmona1q0lywyl3cdkuw29yuh6w0frqh4hnxdj0mrhpf9g",
+                "tmona1q4dg72vn06mrjh3yyzpkws3w2z0whrys87yztek",
+                "tmona1qx4g3glhflr42clkkla9ty0vmfcmme9a4u5ydyz"
             )
         )
     }
